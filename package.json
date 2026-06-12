@@ -1,0 +1,13 @@
+{
+  "name": "worldcup2026-calendar",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-calendar.js",
+    "build:empty-ok": "node scripts/build-calendar.js --allow-empty"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
