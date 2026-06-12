@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 FIFA World Cup Calendar</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    max-width: 640px;
+    margin: 60px auto;
+    padding: 0 20px;
+    background: #0f172a;
+    color: #e2e8f0;
+    line-height: 1.6;
+  }
+  h1 { color: #fff; font-size: 1.8rem; }
+  a { color: #60a5fa; }
+  code {
+    background: #1e293b;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    word-break: break-all;
+  }
+  .card {
+    background: #1e293b;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 16px 0;
+  }
+  .btn {
+    display: inline-block;
+    background: #2563eb;
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+  .btn:hover { background: #1d4ed8; }
+</style>
+</head>
+<body>
+<h1>2026 FIFA World Cup Calendar</h1>
+<p>一个可订阅的 iCalendar 日历，包含 2026 年世界杯赛程。</p>
+
+<div class="card">
+  <h3>订阅日历</h3>
+  <p>将下面的链接添加到你的日历 App 中即可自动获取赛程更新：</p>
+  <p><code id="ics-url"></code></p>
+  <a class="btn" id="subscribe-link" href="worldcup2026.ics">下载 ICS 文件</a>
+</div>
+
+<div class="card">
+  <h3>订阅方法</h3>
+  <p><strong>Apple Calendar / Google Calendar / Outlook：</strong></p>
+  <p>复制上面的链接，在日历 App 中选择"添加订阅日历"并粘贴即可。事件时间会自动转换为你的本地时区。</p>
+</div>
+
+<script>
+const url = new URL('worldcup2026.ics', window.location.href).href;
+document.getElementById('ics-url').textContent = url;
+document.getElementById('subscribe-link').href = url;
+</script>
+</body>
+</html>
