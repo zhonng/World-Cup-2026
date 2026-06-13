@@ -186,10 +186,32 @@ function normalizeEvent(event) {
 
   const homeName = competitorName(home);
   const awayName = competitorName(away);
-  const summary =
-    homeName === "TBD" && awayName === "TBD"
-      ? event.name || event.shortName || "FIFA World Cup Match"
-      : `${displayTeamName(homeName)} vs ${displayTeamName(awayName)}`;
+  const completed = event.status?.type?.state === "post";
+  const homeScore = home?.score;
+  const awayScore = away?.score;
+  const hasScore = completed && homeScore != null && awayScore != null;
+
+  let summary;
+  if (homeName === "TBD" && awayName === "TBD") {
+    summary = event.name || event.shortName || "FIFA World Cup Match";
+  } else if (hasScore) {
+    summary = `${displayTeamName(homeName)} ${homeScore}-${awayScore} ${displayTeamName(awayName)}`;
+  } else {
+    summary = `${displayTeamName(homeName)} vs ${displayTeamName(awayName)}`;
+  }
+
+  const descParts = [
+    event.season?.slug || event.season?.type ? "FIFA World Cup 2026" : "FIFA World Cup",
+  ];
+  if (hasScore) {
+    descParts.push(`Final Score: ${homeName} ${homeScore} - ${awayScore} ${awayName}`);
+  }
+  if (event.status?.type?.description) {
+    descParts.push(`Status: ${event.status.type.description}`);
+  }
+  if (event.links?.[0]?.href) {
+    descParts.push(`ESPN: ${event.links[0].href}`);
+  }
 
   return {
     id: event.id,
@@ -202,13 +224,8 @@ function normalizeEvent(event) {
       competition.venue?.displayName ||
       event.venue?.displayName ||
       "",
-    description: [
-      event.season?.slug || event.season?.type ? "FIFA World Cup 2026" : "FIFA World Cup",
-      event.status?.type?.description ? `Status: ${event.status.type.description}` : "",
-      event.links?.[0]?.href ? `ESPN: ${event.links[0].href}` : "",
-    ]
-      .filter(Boolean)
-      .join("\n"),
+    description: descParts.filter(Boolean).join("\n"),
+    sequence: hasScore ? 1 : 0,
   };
 }
 
@@ -252,7 +269,7 @@ function buildCalendar(matches) {
       line("LOCATION", match.location),
       line("DESCRIPTION", match.description),
       "STATUS:CONFIRMED",
-      "SEQUENCE:0",
+      line("SEQUENCE", String(match.sequence)),
       "END:VEVENT",
     );
   }
