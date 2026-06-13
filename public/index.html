@@ -33,36 +33,70 @@
     display: inline-block;
     background: #2563eb;
     color: #fff;
-    padding: 10px 24px;
+    padding: 12px 28px;
     border-radius: 6px;
     text-decoration: none;
     font-weight: 600;
     margin-top: 8px;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
   }
   .btn:hover { background: #1d4ed8; }
+  .btn-secondary {
+    background: #334155;
+  }
+  .btn-secondary:hover { background: #475569; }
+  ol { padding-left: 20px; }
+  ol li { margin: 8px 0; }
 </style>
 </head>
 <body>
-<h1>2026 FIFA World Cup Calendar</h1>
-<p>一个可订阅的 iCalendar 日历，包含 2026 年世界杯赛程。</p>
+<h1>2026 FIFA World Cup  Calendar</h1>
+<p>点击下方按钮即可将 2026 年世界杯完整赛程添加到你的手机 / 电脑日历。</p>
 
 <div class="card">
-  <h3>订阅日历</h3>
-  <p>将下面的链接添加到你的日历 App 中即可自动获取赛程更新：</p>
-  <p><code id="ics-url"></code></p>
-  <a class="btn" id="subscribe-link" href="worldcup2026.ics">下载 ICS 文件</a>
+  <h3>一键添加到日历</h3>
+  <p>点击后系统会自动打开日历 App 并提示你确认订阅：</p>
+  <a class="btn" id="subscribe-btn" href="#">添加到日历</a>
 </div>
 
 <div class="card">
-  <h3>订阅方法</h3>
-  <p><strong>Apple Calendar / Google Calendar / Outlook：</strong></p>
-  <p>复制上面的链接，在日历 App 中选择"添加订阅日历"并粘贴即可。事件时间会自动转换为你的本地时区。</p>
+  <h3>各平台手动订阅</h3>
+  <p>如果上方按钮没有反应，复制下面的链接，按以下步骤操作：</p>
+  <p><code id="ics-url"></code></p>
+
+  <p><strong> iPhone / iPad / Mac</strong></p>
+  <ol>
+    <li>打开 <strong>设置 → 日历 → 账户 → 添加账户 → 其他 → 添加订阅日历</strong></li>
+    <li>粘贴上面的链接，点"订阅"</li>
+  </ol>
+
+  <p><strong> Google Calendar（网页版）</strong></p>
+  <ol>
+    <li>打开 <a href="https://calendar.google.com" target="_blank">calendar.google.com</a></li>
+    <li>左侧 "其他日历" 旁边点 <strong>+ → 通过网址添加</strong></li>
+    <li>粘贴上面的链接</li>
+  </ol>
+
+  <p><strong> Outlook 网页版</strong></p>
+  <ol>
+    <li>打开 Outlook 日历 → <strong>添加日历 → 从 Internet 订阅</strong></li>
+    <li>粘贴上面的链接</li>
+  </ol>
+
+  <p><strong> 安卓</strong></p>
+  <ol>
+    <li>打开 Google Calendar App → 左上角菜单 → <strong>设置 → 添加日历 → 通过网址添加</strong></li>
+    <li>粘贴上面的链接</li>
+  </ol>
 </div>
 
 <script>
-const url = new URL('worldcup2026.ics', window.location.href).href;
-document.getElementById('ics-url').textContent = url;
-document.getElementById('subscribe-link').href = url;
+const webcalUrl = window.location.href.replace(/^https/, 'webcal').replace(/\/$/, '') + '/worldcup2026.ics';
+const httpsUrl = webcalUrl.replace(/^webcal/, 'https');
+document.getElementById('ics-url').textContent = httpsUrl;
+document.getElementById('subscribe-btn').href = webcalUrl;
 </script>
 </body>
 </html>
