@@ -64,7 +64,7 @@
 <div class="card">
   <h3>各平台手动订阅</h3>
   <p>如果上方按钮没有反应，复制下面的链接，按以下步骤操作：</p>
-  <p><code id="ics-url"></code></p>
+  <button class="btn btn-secondary" id="copy-btn" onclick="copyUrl()">复制链接</button>
 
   <p><strong> iPhone / iPad / Mac</strong></p>
   <ol>
@@ -93,10 +93,22 @@
 </div>
 
 <script>
-const webcalUrl = window.location.href.replace(/^https/, 'webcal').replace(/\/$/, '') + '/worldcup2026.ics';
-const httpsUrl = webcalUrl.replace(/^webcal/, 'https');
-document.getElementById('ics-url').textContent = httpsUrl;
+const httpsUrl = window.location.href.replace(/\/$/, '') + '/worldcup2026.ics';
+const webcalUrl = httpsUrl.replace(/^https/, 'webcal');
 document.getElementById('subscribe-btn').href = webcalUrl;
+
+function copyUrl() {
+  navigator.clipboard.writeText(httpsUrl).then(() => {
+    const btn = document.getElementById('copy-btn');
+    const original = btn.textContent;
+    btn.textContent = '已复制';
+    btn.style.background = '#16a34a';
+    setTimeout(() => {
+      btn.textContent = original;
+      btn.style.background = '';
+    }, 1500);
+  });
+}
 </script>
 </body>
 </html>
