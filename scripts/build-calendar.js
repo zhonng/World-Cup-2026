@@ -270,6 +270,11 @@ function buildCalendar(matches) {
       line("DESCRIPTION", match.description),
       "STATUS:CONFIRMED",
       line("SEQUENCE", String(match.sequence)),
+      "BEGIN:VALARM",
+      "TRIGGER:-PT5M",
+      "ACTION:DISPLAY",
+      `DESCRIPTION:${match.summary}即将开始`,
+      "END:VALARM",
       "END:VEVENT",
     );
   }
