@@ -256,6 +256,12 @@ function buildCalendar(matches) {
     "X-WR-TIMEZONE:UTC",
     "REFRESH-INTERVAL;VALUE=DURATION:PT1H",
     "X-PUBLISHED-TTL:PT1H",
+    "BEGIN:VALARM",
+    "X-APPLE-DEFAULT-ALARM:TRUE",
+    "ACTION:DISPLAY",
+    "TRIGGER:-PT5M",
+    line("DESCRIPTION", "比赛即将开始"),
+    "END:VALARM",
   ];
 
   for (const match of matches) {
