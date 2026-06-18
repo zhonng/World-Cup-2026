@@ -271,9 +271,10 @@ function buildCalendar(matches) {
       "STATUS:CONFIRMED",
       line("SEQUENCE", String(match.sequence)),
       "BEGIN:VALARM",
-      "TRIGGER;RELATED=START:-PT5M",
+      "X-APPLE-DEFAULT-ALARM:TRUE",
       "ACTION:DISPLAY",
-      `DESCRIPTION:${match.summary}即将开始`,
+      "TRIGGER;VALUE=DURATION:-PT5M",
+      line("DESCRIPTION", "5分钟后比赛开始"),
       "END:VALARM",
       "END:VEVENT",
     );
